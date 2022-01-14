@@ -1,0 +1,14 @@
+.image{
+    
+    color:floralwhite;
+    margin: 25px 0 0 50px;
+    font-size: 36px;
+    
+}
+.image::first-letter{
+    color: red;
+}
+.header{
+    grid-area: h;
+    background-color: #0b042b;
+}
