@@ -1,4 +1,5 @@
 import React from 'react';
+import { NavLink } from 'react-router-dom';
 import s from './Sidebar.module.css'
 
 const Sidebar = () => {
@@ -7,19 +8,19 @@ const Sidebar = () => {
             <div>
                 <ul className={s.menu}>
                     <li>
-                        <a href="/profil" className={s.list}>Профиль</a>
+                        <NavLink to="/profil" className={ navData =>  navData.isActive ? s.active : s.list}>Профиль</NavLink>
                     </li>
                     <li>
-                        <a href="/dialogs" className={s.list}>Диалоги</a>
+                        <NavLink to="/dialogs" className={ navData =>  navData.isActive ? s.active : s.list}>Диалоги</NavLink>
                     </li>
                     <li>
-                        <a href="" className={s.list}>Заказы</a>
+                        <NavLink to="/zakaz"  className={ navData =>  navData.isActive ? s.active : s.list}>Заказы</NavLink>
                     </li>
                     <li>
-                        <a href="" className={s.list}>Клиенты</a>
+                        <NavLink  to="/klients" className={ navData =>  navData.isActive ? s.active : s.list}>Клиенты</NavLink>
                     </li>
                     <li>
-                        <a href="" className={s.list}>О компании</a>
+                        <NavLink to="/comp" className={ navData =>  navData.isActive ? s.active : s.list}>О компании</NavLink>
                     </li>
                 </ul>
             </div>

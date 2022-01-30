@@ -1,0 +1,12 @@
+
+.item{
+    color: rgb(198, 218, 18);
+    text-decoration: none;
+
+}
+.item:hover{
+    color:brown;
+    cursor: pointer;
+}
+
+
