@@ -3,20 +3,24 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App, { all, StateType } from './App';
 import reportWebVitals from './reportWebVitals';
-import { addMasseng, addUsers, state, subscripe, updateValueMasseng, updateValueText } from './Redux/state';
+import store from './Redux/state';
+// import { addMasseng, addUsers, state, subscripe, updateValueMasseng, updateValueText } from './Redux/state';
+
+
+
 
 
 const renderState = () => {
   ReactDOM.render(
     <React.StrictMode>
-      <App state={state} addUsers={addUsers} updateValueText={updateValueText} addMasseng={addMasseng} updateValueMasseng={updateValueMasseng} />
+      <App state={store.getState()} dispatсh={store.dispatсh.bind(store)}  />
     </React.StrictMode>,
     document.getElementById('root')
   );
 }
 renderState()
 
-subscripe(renderState)
+store.subscripe(renderState)
 
 
 

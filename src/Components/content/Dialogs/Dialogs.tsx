@@ -1,5 +1,6 @@
 import React from "react";
 import { MassengTextType } from "../../../App";
+import { ActionType } from "../../../Redux/state";
 import s from './Dialogs.module.css'
 import { DialogItem } from "./DialogsItem/DialogsItem";
 import Masseng from "./Masseng/Masseng";
@@ -19,8 +20,7 @@ export type MassengType = {
 type DialogsArrType = {
     DialogsData: Array<DialogType>
     MassengsData: Array<MassengType>
-    addMasseng: () => void
-    updateValueMasseng: (text: string) => void
+    dispatсh: (action: ActionType) => void;
     masseng: string
 }
 
@@ -32,8 +32,7 @@ const Dialogs = (props: DialogsArrType) => {
             </div>
             <div className={s.massenges}>
                 {props.MassengsData.map(m => <Masseng
-                    addMasseng={props.addMasseng}
-                    updateValueMasseng={props.updateValueMasseng}
+                    dispatсh={props.dispatсh}
                     masseng = {props.masseng}
                     id={m.id}
                     massengs={m.massengs}

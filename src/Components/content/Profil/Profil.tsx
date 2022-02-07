@@ -12,7 +12,7 @@ const Profil = (props: ArrMyPostType) => {
     return(
         <div className={s.profil}>
             <H1/>
-            <ProfilInfo updateValueText = {props.updateValueText} masseng = {props.masseng} addUsers = {props.addUsers}/>
+            <ProfilInfo masseng = {props.masseng} dispatсh = {props.dispatсh}/>
             
             {MyPostTeg}
         </div>

@@ -9,6 +9,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Zakaz from './Components/content/Zakaz/Zakaz';
 import Klients from './Components/content/Klients/Klients';
 import Comp from './Components/content/Comp/Comp';
+import { ActionType } from './Redux/state';
 
 
 export type MyPostType = {
@@ -24,8 +25,7 @@ export type MassengTextType = {
 
 export type ArrMyPostType = {
   MyPosts: Array<MyPostType>
-  addUsers: () => void;
-  updateValueText: (text: string) => void;
+  dispatсh: (action: ActionType) => void;
   masseng: string
 }
 export type MusorType =  {
@@ -41,10 +41,7 @@ export type all = {
 
 export type StateType = {
   state: all
-  addUsers: () => void;
-  updateValueText: (text: string) => void;
-  addMasseng: () => void;
-  updateValueMasseng: (text: string) => void;
+  dispatсh: (action: ActionType) => void;
 }
 
 function App(props: StateType) {
@@ -58,11 +55,11 @@ function App(props: StateType) {
         <div className='content'>
           <Routes>
             <Route path="/profil" element={<Profil MyPosts={props.state.MyPosts}
-                                  updateValueText={props.updateValueText}
+                                  // updateValueText={props.updateValueText}
                                   masseng={props.state.musor.text}
-                                  addUsers={props.addUsers} />} />
-            <Route path="/dialogs" element={<Dialogs  addMasseng = {props.addMasseng}
-                                                      updateValueMasseng ={props.updateValueMasseng}
+                                  dispatсh={props.dispatсh} />} />
+            <Route path="/dialogs" element={<Dialogs  dispatсh = {props.dispatсh}
+                                                      // updateValueMasseng ={props.updateValueMasseng}
                                                       masseng={props.state.musor.masseng}
                                                       MassengsData={props.state.MassengsData}
                                                       DialogsData={props.state.DialogsData} />} />
