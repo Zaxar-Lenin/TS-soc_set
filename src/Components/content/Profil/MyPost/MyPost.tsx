@@ -1,6 +1,6 @@
 import React from 'react';
-import { MyPostType } from '../../../../App';
 import s from './MyPost.module.css'
+import {MyPostType} from "../../../../Types/Types";
 
 const MyPost: React.FC<MyPostType> = ({like, coment, title}) => {
     return(

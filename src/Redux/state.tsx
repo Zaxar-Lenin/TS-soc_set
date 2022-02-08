@@ -1,26 +1,15 @@
-import {all, MassengTextType, MyPostType} from "../App"
-// import Masseng from "../Components/content/Dialogs/Masseng/Masseng"
+import {ProfilReducer} from "./profil-reducer";
+import {DialogsReducer} from "./dialogs-reducer";
+import {ActionType, StoreType} from "../Types/Types";
 
 
-export type ActionType =
-    ReturnType<typeof addTextActionCreator>
-    | ReturnType<typeof upDateValueTextActionCreator>
-    | ReturnType<typeof addMassengActionCreator>
-    | ReturnType<typeof upDateValueMassengActionCreator>
 
-
-type StoreType = {
-    _state: all
-    _callSubscripe: () => void
-    subscripe: (observer: () => void) => void
-    getState: () => all
-    dispatсh: (action: ActionType) => void
-}
 
 
 const store: StoreType = {
     _state: {
-        DialogsData: [
+        dialogsPages: {
+            DialogsData: [
             {id: 1, name: "Viki"},
             {id: 2, name: "Sergey"},
             {id: 3, name: "Pasha"},
@@ -49,22 +38,23 @@ const store: StoreType = {
             },
 
         ],
-        MyPosts: [
-            {id: 1, title: "ByBeldrus", coment: 545, like: 23},
-            {id: 2, title: "ByBeldrus", coment: 484, like: 23},
-            {id: 3, title: "ByBeldrus", coment: 54, like: 23},
-            {id: 4, title: "ByBeldrus", coment: 54, like: 23},
-            {id: 5, title: "ByBeldrus", coment: 788, like: 23},
-            {id: 6, title: "ByBeldrus", coment: 519, like: 23},
-            {id: 7, title: "ByBeldrus", coment: 95, like: 23},
-            {id: 8, title: "ByBeldrus", coment: 39, like: 23},
-            {id: 9, title: "ByBeldrus", coment: 158, like: 23},
-            {id: 10, title: "ByBeldrus", coment: 962, like: 23},
-            {id: 11, title: "ByBeldrus", coment: 2, like: 23}
-        ],
-        musor: {
-            text: "",
             masseng: ""
+        },
+        profilPages:{
+            MyPosts: [
+                {id: 1, title: "ByBeldrus", coment: 545, like: 23},
+                {id: 2, title: "ByBeldrus", coment: 484, like: 23},
+                {id: 3, title: "ByBeldrus", coment: 54, like: 23},
+                {id: 4, title: "ByBeldrus", coment: 54, like: 23},
+                {id: 5, title: "ByBeldrus", coment: 788, like: 23},
+                {id: 6, title: "ByBeldrus", coment: 519, like: 23},
+                {id: 7, title: "ByBeldrus", coment: 95, like: 23},
+                {id: 8, title: "ByBeldrus", coment: 39, like: 23},
+                {id: 9, title: "ByBeldrus", coment: 158, like: 23},
+                {id: 10, title: "ByBeldrus", coment: 962, like: 23},
+                {id: 11, title: "ByBeldrus", coment: 2, like: 23}
+            ],
+            text: ""
         }
     },
     _callSubscripe() {
@@ -81,45 +71,15 @@ const store: StoreType = {
 
 
     dispatсh(action: ActionType) {
-        if (action.type === "ADD-USERS") {
-            const newUser: MyPostType = {
-                id: 12,
-                title: this._state.musor.text,
-                coment: 2,
-                like: 23
-            }
-            this._state.MyPosts.push(newUser)
-            this._callSubscripe()
-            this._state.musor.text = ""
-        } else if (action.type === "UP-DATE-VALUE-TEXT") {
-            this._state.musor.text = action.text
-            this._callSubscripe()
-        } else if (action.type === "ADD-MASSENG") {
-            const newMasseng: MassengTextType = {
-                id: 3,
-                masseng: this._state.musor.masseng
-            }
-            this._state.MassengsData[0].massengs.push(newMasseng)
-            this._callSubscripe()
-            this._state.musor.masseng = ""
-        } else if (action.type === "UP-DATE-VALUE-MASSENG") {
-            this._state.musor.masseng = action.text
-            this._callSubscripe()
-        }
+        this._state.profilPages = ProfilReducer(this._state.profilPages, action)
+        this._state.dialogsPages = DialogsReducer(this._state.dialogsPages, action)
+
+        this._callSubscripe()
     },
 
 
 }
-export const addTextActionCreator = () => ({type: "ADD-USERS"} as const)
-export const upDateValueTextActionCreator = (text: string) => ({
-    type: "UP-DATE-VALUE-TEXT",
-    text: text
-} as const )
-export const addMassengActionCreator = () => ({type: "ADD-MASSENG"} as const)
-export const upDateValueMassengActionCreator = (text: string) => ({
-    type: "UP-DATE-VALUE-MASSENG",
-    text: text
-} as const)
+
 
 
 export default store

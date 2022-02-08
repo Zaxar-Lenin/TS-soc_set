@@ -1,8 +1,8 @@
 import React, {KeyboardEvent, RefObject} from "react";
-import {NavLink} from "react-router-dom";
-import {ActionType, addMassengActionCreator, upDateValueMassengActionCreator} from "../../../../Redux/state";
 import {MassengType} from "../Dialogs";
 import s from './Masseng.module.css'
+import {ActionType} from "../../../../Types/Types";
+import {addMassengActionCreator, upDateValueMassengActionCreator} from "../../../../Redux/profil-reducer";
 
 
 type MassengTypeWithFunc = MassengType & {

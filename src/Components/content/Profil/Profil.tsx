@@ -1,9 +1,9 @@
 import React from 'react';
-import { ArrMyPostType } from '../../../App';
 import H1 from './H1/H1';
 import MyPost from './MyPost/MyPost';
 import s from './Profil.module.css'
 import ProfilInfo from './ProfilInfo/ProfilInfo';
+import {ArrMyPostType} from "../../../Types/Types";
 
 const Profil = (props: ArrMyPostType) => {
 

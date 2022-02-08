@@ -1,9 +1,8 @@
 import React from "react";
-import { MassengTextType } from "../../../App";
-import { ActionType } from "../../../Redux/state";
 import s from './Dialogs.module.css'
 import { DialogItem } from "./DialogsItem/DialogsItem";
 import Masseng from "./Masseng/Masseng";
+import {ActionType, MassengTextType} from "../../../Types/Types";
 
 export type DialogType = {
     id: number

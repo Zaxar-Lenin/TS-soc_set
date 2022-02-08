@@ -1,6 +1,7 @@
 import React, {RefObject} from 'react';
-import {ActionType, addTextActionCreator, upDateValueTextActionCreator} from '../../../../Redux/state';
 import s from './ProfilInfo.module.css'
+import {ActionType} from "../../../../Types/Types";
+import {addTextActionCreator, upDateValueTextActionCreator} from "../../../../Redux/dialogs-reducer";
 
 type ProfilInfoType = {
     dispatсh: (action: ActionType) => void;

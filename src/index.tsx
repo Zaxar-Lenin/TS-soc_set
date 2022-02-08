@@ -1,10 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App, { all, StateType } from './App';
 import reportWebVitals from './reportWebVitals';
 import store from './Redux/state';
-// import { addMasseng, addUsers, state, subscripe, updateValueMasseng, updateValueText } from './Redux/state';
+import App from "./App";
+
 
 
 
