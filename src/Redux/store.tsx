@@ -1,5 +1,5 @@
-import {ProfilReducer} from "./profil-reducer";
-import {DialogsReducer} from "./dialogs-reducer";
+import {profilReducer} from "./profil-reducer";
+import {dialogsReducer} from "./dialogs-reducer";
 import {ActionType, StoreType} from "../Types/Types";
 
 
@@ -71,8 +71,8 @@ const store: StoreType = {
 
 
     dispatсh(action: ActionType) {
-        this._state.profilPages = ProfilReducer(this._state.profilPages, action)
-        this._state.dialogsPages = DialogsReducer(this._state.dialogsPages, action)
+        this._state.profilPages = profilReducer(this._state.profilPages, action)
+        this._state.dialogsPages = dialogsReducer(this._state.dialogsPages, action)
 
         this._callSubscripe()
     },

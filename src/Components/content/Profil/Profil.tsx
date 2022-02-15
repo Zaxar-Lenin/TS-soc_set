@@ -4,6 +4,7 @@ import MyPost from './MyPost/MyPost';
 import s from './Profil.module.css'
 import ProfilInfo from './ProfilInfo/ProfilInfo';
 import {ArrMyPostType} from "../../../Types/Types";
+import ProfilInfoContener from "./ProfilInfo/ProfilInfoContener";
 
 const Profil = (props: ArrMyPostType) => {
 
@@ -12,7 +13,7 @@ const Profil = (props: ArrMyPostType) => {
     return(
         <div className={s.profil}>
             <H1/>
-            <ProfilInfo masseng = {props.masseng} dispatсh = {props.dispatсh}/>
+            <ProfilInfoContener masseng = {props.masseng} dispatсh = {props.dispatсh}/>
             
             {MyPostTeg}
         </div>

@@ -2,9 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
-import store from './Redux/state';
+import store from './Redux/redux-store';
 import App from "./App";
-
 
 
 
@@ -13,14 +12,14 @@ import App from "./App";
 const renderState = () => {
   ReactDOM.render(
     <React.StrictMode>
-      <App state={store.getState()} dispatсh={store.dispatсh.bind(store)}  />
+      <App state={store.getState()} dispatсh={store.dispatch.bind(store)}  />
     </React.StrictMode>,
     document.getElementById('root')
   );
 }
 renderState()
 
-store.subscripe(renderState)
+store.subscribe(renderState)
 
 
 
