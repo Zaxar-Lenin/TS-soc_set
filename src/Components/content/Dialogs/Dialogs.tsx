@@ -1,8 +1,7 @@
 import React from "react";
 import s from './Dialogs.module.css'
 import {DialogItem} from "./DialogsItem/DialogsItem";
-import Masseng from "./Masseng/Masseng";
-import {ActionType, MassengTextType} from "../../../Types/Types";
+import {MassengTextType} from "../../../Types/Types";
 import MassengContener from "./Masseng/MassengContener";
 
 export type DialogType = {
@@ -17,18 +16,21 @@ export type MassengType = {
     massengs: Array<MassengTextType>
 }
 
+// type DialogsArrType = {
+//     DialogsData: Array<DialogType>
+//     MassengsData: Array<MassengType>
+//     dispatсh: (action: ActionType) => void;
+//     masseng: string
+// }
+
 type DialogsArrType = {
-    DialogsData: Array<DialogType>
-    MassengsData: Array<MassengType>
-    dispatсh: (action: ActionType) => void;
-    masseng: string
-}
+     DialogsData: Array<DialogType>
+     MassengsData: Array<MassengType>
+ }
 
 const Dialogs = (props: DialogsArrType) => {
 
     const mapMssengsData = props.MassengsData.map(m => <MassengContener
-        dispatсh={props.dispatсh}
-        masseng={props.masseng}
         id={m.id}
         massengs={m.massengs}
         name={m.name}/>)

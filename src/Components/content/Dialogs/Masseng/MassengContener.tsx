@@ -1,32 +1,38 @@
-import React, {RefObject} from "react";
+import React from "react";
 import {MassengType} from "../Dialogs";
-import {ActionType} from "../../../../Types/Types";
 import {addMassengActionCreator, upDateValueMassengActionCreator} from "../../../../Redux/profil-reducer";
 import Masseng from "./Masseng";
+import {MyContext} from "../../../../Contecst";
 
 
-type MassengTypeWithFunc = MassengType & {
-    dispatсh: (action: ActionType) => void;
-    masseng: string
-}
-
+// type MassengTypeWithFunc = MassengType & {
+//     dispatсh: (action: ActionType) => void;
+//     masseng: string
+// }
+type MassengTypeWithFunc = MassengType
 
 const MassengContener = (props: MassengTypeWithFunc) => {
-    const textAreaEl: RefObject<HTMLTextAreaElement> = React.createRef()
+    // const textAreaEl: RefObject<HTMLTextAreaElement> = React.createRef()
 
-    const onAddMasseng = () => {
-        props.dispatсh(addMassengActionCreator())
-    }
 
-    const onChangeValueOn = (text: string) => {
-        props.dispatсh(upDateValueMassengActionCreator(text))
-    }
-    return <Masseng id={props.id}
-                    massengs={props.massengs}
-                    name={props.name}
-                    masseng={props.masseng}
-                    onAddMasseng={onAddMasseng}
-                    onChangeValueOn={onChangeValueOn}/>
+    return <MyContext.Consumer>
+        { store => {
+            const onAddMasseng = () => {
+                store.dispatch(addMassengActionCreator())
+            }
+
+            const onChangeValueOn = (text: string) => {
+                store.dispatch(upDateValueMassengActionCreator(text))
+            }
+
+            return <Masseng id={props.id}
+                     massengs={props.massengs}
+                     name={props.name}
+                     masseng={store.getState().dialogsPages.masseng}
+                     onAddMasseng={onAddMasseng}
+                     onChangeValueOn={onChangeValueOn}/>
+        }}
+    </MyContext.Consumer>
 
 }
 

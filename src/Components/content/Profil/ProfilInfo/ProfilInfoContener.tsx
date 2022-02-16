@@ -2,25 +2,34 @@ import React from 'react';
 import {ActionType} from "../../../../Types/Types";
 import {addTextActionCreator, upDateValueTextActionCreator} from "../../../../Redux/dialogs-reducer";
 import ProfilInfo from "./ProfilInfo";
+import {MyContext} from '../../../../Contecst';
 
-type ProfilInfoType = {
-    dispatсh: (action: ActionType) => void
-    masseng: string
+// type ProfilInfoType = {
+//     dispatсh: (action: ActionType) => void
+//     masseng: string
+// }
+
+const ProfilInfoContener = () => {
+
+
+    return <MyContext.Consumer>
+        {store => {
+            const onAddText = () => {
+                store.dispatch(addTextActionCreator())
+
+            }
+
+            const onChangeUpdateValue = (text: string) => {
+                store.dispatch(upDateValueTextActionCreator(text))
+            }
+            const masseng = store.getState().profilPages.text
+            return (
+                <ProfilInfo masseng={masseng} onAddText={onAddText}
+                            onChangeUpdateValue={onChangeUpdateValue}/>
+            )
+        }
+        }
+    </MyContext.Consumer>
 }
 
-const ProfilInfoContener = (props: ProfilInfoType) => {
-
-
-    const onAddText = () => {
-        props.dispatсh(addTextActionCreator())
-
-    }
-
-    const onChangeUpdateValue = (text: string) => {
-            props.dispatсh(upDateValueTextActionCreator(text))
-    }
-
-    return <ProfilInfo masseng={props.masseng} onAddText = {onAddText} onChangeUpdateValue = {onChangeUpdateValue}/>
-}
-
-export default ProfilInfoContener;
+export default ProfilInfoContener
