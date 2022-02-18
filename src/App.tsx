@@ -2,13 +2,12 @@ import React from 'react';
 import './App.css'
 import Header from './Components/Header/Header';
 import Sidebar from './Components/Sidebar/Sidebar';
-import Profil from './Components/content/Profil/Profil';
-import Dialogs from './Components/content/Dialogs/Dialogs';
 import {Route, Routes} from 'react-router-dom';
 import Zakaz from './Components/content/Zakaz/Zakaz';
 import Klients from './Components/content/Klients/Klients';
 import Comp from './Components/content/Comp/Comp';
-import {MyContext} from "./Contecst";
+import DialogsContainer from './Components/content/Dialogs/DialogsContainer';
+import {ProfilConteiner} from "./Components/content/Profil/ProfilConteiner";
 
 
 // props: StateType
@@ -21,21 +20,8 @@ function App() {
             <Sidebar/>
             <div className='content'>
                 <Routes>
-                    <Route path="/profil" element={
-                        <MyContext.Consumer>
-                            { store => (
-                                <Profil MyPosts={store.getState().profilPages.MyPosts}/>
-                            )
-                            }
-                        </MyContext.Consumer>}/>
-                    <Route path="/dialogs" element={
-                        <MyContext.Consumer>
-                        { store => {
-                            return (<Dialogs DialogsData = {store.getState().dialogsPages.DialogsData}
-                                             MassengsData = {store.getState().dialogsPages.MassengsData}/>)
-                        }
-                        }
-                        </MyContext.Consumer>}/>
+                    <Route path="/profil" element={<ProfilConteiner/>}/>
+                    <Route path="/dialogs" element={<DialogsContainer/>}/>
                     <Route path="/zakaz" element={<Zakaz/>}/>
                     <Route path="/klients" element={<Klients/>}/>
                     <Route path="/comp" element={<Comp/>}/>

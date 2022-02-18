@@ -1,20 +1,20 @@
 import React, {KeyboardEvent, RefObject} from "react";
 import {MassengType} from "../Dialogs";
-import s from './Masseng.module.css'
+import s from './Messange.module.css'
 
 
 type MassengTypeWithFunc = MassengType & {
-    masseng: string
+    messangeChange: string
     onAddMasseng: () => void
     onChangeValueOn: (text: string) => void
 }
 
 
-const Masseng = (props: MassengTypeWithFunc) => {
+const Messange = (props: MassengTypeWithFunc) => {
     const textAreaEl: RefObject<HTMLTextAreaElement> = React.createRef()
 
     const addMasseng = () => {
-        props.masseng && props.onAddMasseng()
+        props.messangeChange && props.onAddMasseng()
     }
 
     const ChangeValueOn = () => {
@@ -26,7 +26,7 @@ const Masseng = (props: MassengTypeWithFunc) => {
 
 
     const enterPik = (e: KeyboardEvent<HTMLTextAreaElement>) => {
-        if (props.masseng && e.key === "Enter") {
+        if (props.messangeChange && e.key === "Enter") {
             props.onAddMasseng()
         }
     }
@@ -35,15 +35,15 @@ const Masseng = (props: MassengTypeWithFunc) => {
     return <div className={s.item}>
         <div>{props.name}</div>
         <ul>
-            {props.massengs.map(m => <li>{m.masseng}</li>)}
+            {props.messanges.map(m => <li>{m.messange}</li>)}
         </ul>
         <div className={s.text}>
                     <textarea onKeyPress={enterPik} onChange={ChangeValueOn} ref={textAreaEl}
-                              value={props.masseng}></textarea>
+                              value={props.messangeChange}></textarea>
             <button onClick={addMasseng}>OK</button>
         </div>
     </div>
 
 }
 
-export default Masseng
+export default Messange;

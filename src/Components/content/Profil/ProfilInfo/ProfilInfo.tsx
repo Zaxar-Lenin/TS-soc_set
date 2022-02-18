@@ -4,7 +4,7 @@ import s from './ProfilInfo.module.css'
 type ProfilInfoType = {
     onAddText: () => void
     onChangeUpdateValue: (text: string) => void
-    masseng: string
+    messange: string
 }
 
 const ProfilInfo = (props: ProfilInfoType) => {
@@ -40,7 +40,7 @@ const ProfilInfo = (props: ProfilInfoType) => {
                 </ul>
             </div>
             <div className={s.text}>
-                <textarea ref={refTeaxt} onChange={updateValue} value={props.masseng}></textarea>
+                <textarea ref={refTeaxt} onChange={updateValue} value={props.messange}></textarea>
                 <button onClick={addText}>OK</button>
             </div>
 

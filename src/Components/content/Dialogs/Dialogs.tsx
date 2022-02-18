@@ -2,7 +2,7 @@ import React from "react";
 import s from './Dialogs.module.css'
 import {DialogItem} from "./DialogsItem/DialogsItem";
 import {MassengTextType} from "../../../Types/Types";
-import MassengContener from "./Masseng/MassengContener";
+import Messange from "./Messange/Messange";
 
 export type DialogType = {
     id: number
@@ -13,26 +13,25 @@ export type DialogType = {
 export type MassengType = {
     id: number
     name: string
-    massengs: Array<MassengTextType>
+    messanges: Array<MassengTextType>
 }
 
-// type DialogsArrType = {
-//     DialogsData: Array<DialogType>
-//     MassengsData: Array<MassengType>
-//     dispatсh: (action: ActionType) => void;
-//     masseng: string
-// }
-
 type DialogsArrType = {
-     DialogsData: Array<DialogType>
-     MassengsData: Array<MassengType>
- }
+    DialogsData: Array<DialogType>
+    MessangesData: Array<MassengType>
+    onAddMasseng: () => void
+    onChangeValueOn: (text: string) => void
+    messangeChange: string
+}
 
 const Dialogs = (props: DialogsArrType) => {
 
-    const mapMssengsData = props.MassengsData.map(m => <MassengContener
+    const mapMssengsData = props.MessangesData.map(m => <Messange
+        messangeChange = {props.messangeChange}
+        onAddMasseng = {props.onAddMasseng}
+        onChangeValueOn = {props.onChangeValueOn}
         id={m.id}
-        massengs={m.massengs}
+        messanges={m.messanges}
         name={m.name}/>)
 
     return (
@@ -40,7 +39,7 @@ const Dialogs = (props: DialogsArrType) => {
             <div className={s.dialogItems}>
                 {props.DialogsData.map(d => <DialogItem id={d.id} name={d.name}/>)}
             </div>
-            <div className={s.massenges}>
+            <div className={s.messages}>
                 {mapMssengsData}
             </div>
         </div>

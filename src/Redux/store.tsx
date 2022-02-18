@@ -25,20 +25,20 @@ const store: StoreType = {
         ],
         MassengsData: [
             {
-                id: 1, name: "Viki:", massengs: [
+                id: 1, name: "Viki:", messanges: [
                     {
                         id: 1,
-                        masseng: "This page provides various texts in English for reading.Texts are useful for both schoolchildren and students. Recommended for beginners and those with limited vocabulary"
+                        messange: "This page provides various texts in English for reading.Texts are useful for both schoolchildren and students. Recommended for beginners and those with limited vocabulary"
                     },
                     {
                         id: 2,
-                        masseng: "This page provides various texts in English for reading.Texts are useful for both schoolchildren and students. Recommended for beginners and those with limited vocabulary"
+                        messange: "This page provides various texts in English for reading.Texts are useful for both schoolchildren and students. Recommended for beginners and those with limited vocabulary"
                     }
                 ]
             },
 
         ],
-            masseng: ""
+        messange: ""
         },
         profilPages:{
             MyPosts: [
@@ -72,7 +72,7 @@ const store: StoreType = {
 
     dispatсh(action: ActionType) {
         this._state.profilPages = profilReducer(this._state.profilPages, action)
-        this._state.dialogsPages = dialogsReducer(this._state.dialogsPages, action)
+        // this._state.dialogsPages = dialogsReducer(this._state.dialogsPages, action)
 
         this._callSubscripe()
     },

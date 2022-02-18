@@ -18,31 +18,31 @@ const initialState = {
     ],
     MassengsData: [
         {
-            id: 1, name: "Viki:", massengs: [
+            id: 1, name: "Viki:", messanges: [
                 {
                     id: 1,
-                    masseng: "This page provides various texts in English for reading.Texts are useful for both schoolchildren and students. Recommended for beginners and those with limited vocabulary"
+                    messange: "This page provides various texts in English for reading.Texts are useful for both schoolchildren and students. Recommended for beginners and those with limited vocabulary"
                 },
                 {
                     id: 2,
-                    masseng: "This page provides various texts in English for reading.Texts are useful for both schoolchildren and students. Recommended for beginners and those with limited vocabulary"
+                    messange: "This page provides various texts in English for reading.Texts are useful for both schoolchildren and students. Recommended for beginners and those with limited vocabulary"
                 }
             ]
         },
 
     ],
-    masseng: ""
+    messangeChange: ""
 }
 export const dialogsReducer = (state = initialState, action: ActionType) => {
     if (action.type === "ADD-MASSENG") {
         const newMasseng: MassengTextType = {
             id: 3,
-            masseng: state.masseng
+            messange: state.messangeChange
         }
-        state.MassengsData[0].massengs.push(newMasseng)
-        state.masseng = ""
+        state.MassengsData[0].messanges.push(newMasseng)
+        state.messangeChange = ""
     } else if (action.type === "UP-DATE-VALUE-MASSENG") {
-        state.masseng = action.text
+        state.messangeChange = action.text
     }
     return state
 }

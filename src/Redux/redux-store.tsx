@@ -7,8 +7,9 @@ let reducers = combineReducers({
     profilPages: profilReducer,
     dialogsPages: dialogsReducer
 })
-let  store = createStore(reducers);
+let store = createStore(reducers);
 
 export type StoreType = typeof store
+export type StateType = ReturnType<typeof reducers>;
 
 export default store

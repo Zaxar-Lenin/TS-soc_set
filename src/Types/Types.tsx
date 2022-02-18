@@ -26,19 +26,19 @@ export type MyPostType = {
 }
 export type MassengTextType = {
     id: number
-    masseng: string
+    messange: string
 }
 
 export type ArrMyPostType = {
     MyPosts: Array<MyPostType>
     dispatсh: (action: ActionType) => void;
-    masseng: string
+    messange: string
 }
 
 export type DialogsPagesType = {
     DialogsData: Array<DialogType>
     MassengsData: Array<MassengType>
-    masseng: string
+    messange: string
 }
 export type ProfilPagesType = {
     MyPosts: Array<MyPostType>
