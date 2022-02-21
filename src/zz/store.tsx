@@ -1,5 +1,5 @@
-import {profilReducer} from "./profil-reducer";
-import {dialogsReducer} from "./dialogs-reducer";
+import {profilReducer} from "../Redux/profil-reducer";
+import {dialogsReducer} from "../Redux/dialogs-reducer";
 import {ActionType, StoreType} from "../Types/Types";
 
 
