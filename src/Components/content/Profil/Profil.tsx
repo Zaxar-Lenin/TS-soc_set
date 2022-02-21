@@ -9,19 +9,17 @@ import ProfilInfo from "./ProfilInfo/ProfilInfo";
 // props: ArrMyPostType
 
 type MyPostPropsTypes = {
-    MyPost: Array<MyPostType>
+    myPosts: Array<MyPostType>
     messange: string
     onAddText: () => void
     onChangeUpdateValue: (text: string) => void
-
-
 }
 
 
 const Profil = (props: MyPostPropsTypes) => {
 
 
-    let MyPostTeg = props.MyPost.map(p => <MyPost id = {p.id} title = {p.title} coment = {p.coment} like = {p.like}/>)
+    let MyPostTeg = props.myPosts.map(p => <MyPost id = {p.id} title = {p.title} coment = {p.coment} like = {p.like}/>)
 
     return(
         <div className={s.profil}>

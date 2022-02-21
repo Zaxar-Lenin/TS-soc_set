@@ -1,7 +1,7 @@
-import {DialogsPagesType, MassengTextType} from "../Types/Types";
-import {ActionType} from "../Types/Types";
+import {ActionType, MassengTextType} from "../Types/Types";
+import {DialogType, MassengType} from "../Components/content/Dialogs/Dialogs";
 
-const initialState = {
+const initialState:{DialogsData: DialogType[],MassengsData:MassengType[],messangeChange: string} = {
     DialogsData: [
         {id: 1, name: "Viki"},
         {id: 2, name: "Sergey"},
@@ -28,21 +28,22 @@ const initialState = {
                     messange: "This page provides various texts in English for reading.Texts are useful for both schoolchildren and students. Recommended for beginners and those with limited vocabulary"
                 }
             ]
-        },
+        }
+
 
     ],
     messangeChange: ""
 }
-export const dialogsReducer = (state = initialState, action: ActionType) => {
+export const dialogsReducer = (state = initialState, action: ActionType):{DialogsData: DialogType[],MassengsData:MassengType[],messangeChange: string} => {
     if (action.type === "ADD-MASSENG") {
         const newMasseng: MassengTextType = {
             id: 3,
             messange: state.messangeChange
         }
-        state.MassengsData[0].messanges.push(newMasseng)
-        state.messangeChange = ""
+        return {...state,MassengsData: state.MassengsData.map(m => ({...m,messanges: [...m.messanges,newMasseng]})),messangeChange:""}
+        // state.messangeChange = ""
     } else if (action.type === "UP-DATE-VALUE-MASSENG") {
-        state.messangeChange = action.text
+        return {...state,messangeChange: action.text}
     }
     return state
 }

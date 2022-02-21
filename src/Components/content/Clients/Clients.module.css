@@ -1,0 +1,35 @@
+.clients{
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+}
+
+.client{
+    display: flex;
+    margin: 10px 0;
+}
+
+.image{
+    max-width: 150px;
+    min-height: 150px;
+    border-radius: 50%;
+}
+
+.button{
+    width: 100px;
+    height: 30px;
+    background-color: green;
+    text-align: center;
+    color: #fff;
+}
+
+.box1{
+    min-height: 200px;
+}
+.box2{
+    min-height: 150px;
+    background-color: #94ab07;
+    width: 500px;
+    margin: 0 0 0 20px;
+    color: white;
+}

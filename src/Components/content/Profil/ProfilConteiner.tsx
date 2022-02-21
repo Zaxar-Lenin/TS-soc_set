@@ -6,23 +6,27 @@ import {addTextActionCreator, upDateValueTextActionCreator} from "../../../Redux
 import { MyPostType } from "../../../Types/Types";
 
 type MapStateToPropsType = {
-        MyPosts: Array<MyPostType>
-        messange: string 
+        myPosts: Array<MyPostType>
+        messange: string
 }
 
-const MapStateToProps = (state:StateType): MapStateToPropsType => ({
-        MyPosts: state.profilPages.MyPosts,
+const MapStateToProps = (state:StateType): MapStateToPropsType => {
+    return {
+        myPosts: state.profilPages.MyPosts,
         messange: state.profilPages.text
-})
-const MapDispatchToProps = (dispatch: Dispatch) => ({
-    onAddText: () => {
+    }
+}
+const MapDispatchToProps = (dispatch: Dispatch) => {
+    return {
+        onAddText: () => {
             dispatch(addTextActionCreator())
-         },
-    onChangeUpdateValue: (text: string) => {
-             dispatch(upDateValueTextActionCreator(text))
+        },
+        onChangeUpdateValue: (text: string) => {
+            dispatch(upDateValueTextActionCreator(text))
         }
 
-})
+    }
+}
 
 export const ProfilConteiner = connect(MapStateToProps,MapDispatchToProps)(Profil)
 

@@ -1,7 +1,8 @@
 import {MyPostType, ProfilPagesType} from "../Types/Types";
 import {ActionType} from "./../Types/Types";
+import MyPost from "../Components/content/Profil/MyPost/MyPost";
 
-const initialState = {
+const initialState: {MyPosts:  MyPostType[], text: string} = {
     MyPosts: [
         {id: 1, title: "ByBeldrus", coment: 545, like: 23},
         {id: 2, title: "ByBeldrus", coment: 484, like: 23},
@@ -17,7 +18,7 @@ const initialState = {
     ],
     text: ""
 }
-export const profilReducer = (state = initialState, action: ActionType) => {
+export const profilReducer = (state = initialState, action: ActionType):{MyPosts:  MyPostType[], text: string} => {
     if (action.type === "ADD-USERS") {
         const newUser: MyPostType = {
             id: 12,
@@ -25,10 +26,11 @@ export const profilReducer = (state = initialState, action: ActionType) => {
             coment: 2,
             like: 23
         }
-        state.MyPosts.push(newUser)
-        state.text = ""
+        return {...state, MyPosts: [...state.MyPosts,newUser], text: ""}
     } else if (action.type === "UP-DATE-VALUE-TEXT") {
-        state.text = action.text
+       return {
+            ...state, text: action.text
+        }
     }
 
     return state
