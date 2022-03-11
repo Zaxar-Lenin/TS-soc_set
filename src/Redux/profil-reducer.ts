@@ -2,7 +2,30 @@ import {MyPostType, ProfilPagesType} from "../Types/Types";
 import {ActionType} from "./../Types/Types";
 import MyPost from "../Components/content/Profil/MyPost/MyPost";
 
-const initialState: {MyPosts:  MyPostType[], text: string} = {
+export type ProfilUserType = {
+    "aboutMe": string,
+    "contacts": {
+        "facebook": string,
+        "website": null,
+        "vk": string,
+        "twitter": string,
+        "instagram": string,
+        "youtube": null,
+        "github": string,
+        "mainLink": null
+    },
+    "lookingForAJob": boolean,
+    "lookingForAJobDescription": string,
+    "fullName": string,
+    "userId": number,
+    "photos": {
+        "small":string,
+        "large": string,
+    },
+}
+
+
+const initialState = {
     MyPosts: [
         {id: 1, title: "ByBeldrus", coment: 545, like: 23},
         {id: 2, title: "ByBeldrus", coment: 484, like: 23},
@@ -15,10 +38,14 @@ const initialState: {MyPosts:  MyPostType[], text: string} = {
         {id: 9, title: "ByBeldrus", coment: 158, like: 23},
         {id: 10, title: "ByBeldrus", coment: 962, like: 23},
         {id: 11, title: "ByBeldrus", coment: 2, like: 23}
-    ],
-    text: ""
+    ] as MyPostType[],
+    profilUser: {} as ProfilUserType,
+    text: "",
+    isUser: false
 }
-export const profilReducer = (state = initialState, action: ActionType):{MyPosts:  MyPostType[], text: string} => {
+
+export type InitiolState = typeof initialState
+export const profilReducer = (state  = initialState, action: ActionType):InitiolState => {
     if (action.type === "ADD-USERS") {
         const newUser: MyPostType = {
             id: 12,
@@ -31,14 +58,34 @@ export const profilReducer = (state = initialState, action: ActionType):{MyPosts
        return {
             ...state, text: action.text
         }
+    }else if (action.type === "SET-PROFIL-USER"){
+        return {
+            ...state,
+            profilUser: {...action.user}
+        }
+    }else if(action.type === "UPDETE-IS-USER"){
+        return {
+            ...state,
+            isUser: action.isUser
+        }
     }
 
     return state
 }
 
 
-export const addMassengActionCreator = () => ({type: "ADD-MASSENG"} as const)
-export const upDateValueMassengActionCreator = (text: string) => ({
-    type: "UP-DATE-VALUE-MASSENG",
+
+export const addTextAC = () => ({type: "ADD-USERS"} as const)
+export const upDateValueTextAC = (text: string) => ({
+    type: "UP-DATE-VALUE-TEXT",
     text: text
+} as const)
+export const setUserProfilAC = (user: ProfilUserType) => ({
+    type: "SET-PROFIL-USER",
+    user
+} as const)
+
+export const updeteIsUserAC = (isUser: boolean) => ({
+    type: "UPDETE-IS-USER",
+    isUser
 } as const)

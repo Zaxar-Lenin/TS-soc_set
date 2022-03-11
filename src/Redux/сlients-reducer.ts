@@ -1,52 +1,51 @@
-export type СlientsPropsType = {
-    id: number
-    foto: string
-    subscribe: boolean
-    intelligence: string
-    location: {
-        country: string
-        city: string
-    }
-}
-const initialState: { сlients: СlientsPropsType[] } = {
-    сlients: [
-    //     {
-    //         id: 1,
-    //         foto: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSaNEezIgTXhB9_OTZCAicRofN62-_pH5z2NiHa_nA2s492NU8NFymAbTpMbNm0NLeLtJw&usqp=CAU",
-    //         subscribe: true,
-    //         intelligence: "I like write code",
-    //         location: {country: "Belarus", city: "Minsk"}
-    //     },
-    //     {
-    //         id: 2,
-    //         foto: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSaNEezIgTXhB9_OTZCAicRofN62-_pH5z2NiHa_nA2s492NU8NFymAbTpMbNm0NLeLtJw&usqp=CAU",
-    //         subscribe: true,
-    //         intelligence: "I like write code",
-    //         location: {country: "Belarus", city: "Minsk"}
-    //     },
-    //     {
-    //         id: 3,
-    //         foto: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSaNEezIgTXhB9_OTZCAicRofN62-_pH5z2NiHa_nA2s492NU8NFymAbTpMbNm0NLeLtJw&usqp=CAU",
-    //         subscribe: true,
-    //         intelligence: "I like write code",
-    //         location: {country: "Belarus", city: "Minsk"}
-    //     }
-     ]
-
+export type ClientsPropsType = {
+    name: string,
+    id: number,
+    uniqueUrlName: string,
+    photos: {
+        small: string,
+        large: string
+    },
+    status: string,
+    followed: boolean
 }
 
+type ClientsType = {
+    clients: ClientsPropsType[]
+    totalCount: number
+    countClientsOnLine: number
+    page: number
+    isFollowed: boolean
+}
+const initialState: ClientsType = {
+    clients: [] as ClientsPropsType[],
+    totalCount: 0,
+    countClientsOnLine: 10,
+    page: 1,
+    isFollowed: false,
+}
+// const ClientsType = typeof initialState
 
-type ActionType = ActionTypeSubscribe | ActionTypeUnSubscribe | ActionTypeSetClients
+type ActionType = ActionTypeSubscribe | ActionTypeUnSubscribe | ActionTypeSetClients | ActionTypeUpdetePage | ActionTypeSetTotalCountAC | ActionTypeUpdetePreloadAC
 
 
-export const сlientsReducer = (state = initialState, action: ActionType): { сlients: СlientsPropsType[] } => {
+export const clientsReducer = (state = initialState, action: ActionType): ClientsType => {
     switch (action.type) {
         case "UPDETE-SUBSCRIBE":
-            return {...state, сlients: state.сlients.map(m => m.id == action.idClients ? {...m,subscribe: true} : m)}
+            return {...state, clients: state.clients.map(m => m.id == action.idClients ? {...m,followed: true} : m)}
         case "UPDETE-UN-SUBSCRIBE":
-            return {...state, сlients: state.сlients.map(m => m.id === action.idClients ? {...m,subscribe: false} : m)}
+            return {...state, clients: state.clients.map(m => m.id === action.idClients ? {...m,followed: false} : m)}
         case "SET-CLIENTS":
-            return {...state, сlients: [...state.сlients,...action.users]}
+            return {...state, clients: action.users}
+        case "UPDETE-PAGE":
+            return {...state,page: action.page}
+        case "SET-TOTAL-COUNT":
+            return {...state,totalCount: action.count}
+        case "UPDETE-PRELOAD":
+            return{
+                ...state,
+                isFollowed: action.isFollowed
+            }
         default:
             return state
 
@@ -54,28 +53,48 @@ export const сlientsReducer = (state = initialState, action: ActionType): { сl
 }
 
 
-export const subscribeClientAC = (id: number) => {
+export const subscribeClient = (id: number) => {
     return {
         type: "UPDETE-SUBSCRIBE",
         idClients: id
     }as const
 }
 
-export const unSubscribeClientAC = (id: number) => {
+export const unSubscribeClient = (id: number) => {
     return {
         type: "UPDETE-UN-SUBSCRIBE",
         idClients: id
     }as const
 }
 
-export const setClientsAC = ( users: СlientsPropsType[]) => {
+export const setClients = ( users: ClientsPropsType[]) => {
     return {
         type: "SET-CLIENTS",
         users: users
     }as const
 }
+export const updetePage = ( m: number) => {
+    return {
+        type: "UPDETE-PAGE",
+        page: m
+    }as const
+}
+export const setTotatCount = ( count: number) => {
+    return {
+        type: "SET-TOTAL-COUNT",
+        count
+    }as const
+}
+export const updetePreload = ( isFollowed: boolean) => {
+    return {
+        type: "UPDETE-PRELOAD",
+        isFollowed
+    }as const
+}
 
-
-type ActionTypeSubscribe = ReturnType<typeof subscribeClientAC>
-type ActionTypeUnSubscribe = ReturnType<typeof unSubscribeClientAC>
-type ActionTypeSetClients = ReturnType<typeof setClientsAC>
+type ActionTypeUpdetePage = ReturnType<typeof updetePage>
+type ActionTypeSubscribe = ReturnType<typeof subscribeClient>
+type ActionTypeUnSubscribe = ReturnType<typeof unSubscribeClient>
+type ActionTypeSetClients = ReturnType<typeof setClients>
+type ActionTypeSetTotalCountAC = ReturnType<typeof setTotatCount>
+type ActionTypeUpdetePreloadAC = ReturnType<typeof updetePreload>

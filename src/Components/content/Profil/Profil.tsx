@@ -4,6 +4,7 @@ import MyPost from './MyPost/MyPost';
 import s from './Profil.module.css'
 import {MyPostType} from "../../../Types/Types";
 import ProfilInfo from "./ProfilInfo/ProfilInfo";
+import {ProfilUserType} from "../../../Redux/profil-reducer";
 
 
 // props: ArrMyPostType
@@ -11,21 +12,22 @@ import ProfilInfo from "./ProfilInfo/ProfilInfo";
 type MyPostPropsTypes = {
     myPosts: Array<MyPostType>
     messange: string
-    onAddText: () => void
-    onChangeUpdateValue: (text: string) => void
+    addText: () => void
+    upDateValueText: (text: string) => void
+    profilUser: ProfilUserType
+    isUser: boolean
 }
 
 
 const Profil = (props: MyPostPropsTypes) => {
 
 
-    let MyPostTeg = props.myPosts.map(p => <MyPost id = {p.id} title = {p.title} coment = {p.coment} like = {p.like}/>)
+    let MyPostTeg = props.myPosts.map(p => <MyPost key = {p.id} id = {p.id} title = {p.title} coment = {p.coment} like = {p.like}/>)
 
     return(
         <div className={s.profil}>
             <H1/>
-            {/*<ProfilInfoContener masseng = {props.masseng} dispatсh = {props.dispatсh}/>*/}
-            <ProfilInfo onAddText = {props.onAddText} onChangeUpdateValue = {props.onChangeUpdateValue} messange = {props.messange}/>
+            <ProfilInfo isUser = {props.isUser} profilUser={props.profilUser} addText = {props.addText} upDateValueText = {props.upDateValueText} messange = {props.messange}/>
             {MyPostTeg}
         </div>
     );

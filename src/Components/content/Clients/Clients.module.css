@@ -33,3 +33,14 @@
     margin: 0 0 0 20px;
     color: white;
 }
+.selected{
+    color: white;
+}
+.spanCorsor{
+    cursor: pointer;
+}
+
+.pagination{
+    width: 300px;
+    overflow-x: auto;
+}

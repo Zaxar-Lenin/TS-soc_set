@@ -48,8 +48,8 @@ export const dialogsReducer = (state = initialState, action: ActionType):{Dialog
     return state
 }
 
-export const addTextActionCreator = () => ({type: "ADD-USERS"} as const)
-export const upDateValueTextActionCreator = (text: string) => ({
-    type: "UP-DATE-VALUE-TEXT",
+export const addMasseng = () => ({type: "ADD-MASSENG"} as const)
+export const upDateValueMasseng = (text: string) => ({
+    type: "UP-DATE-VALUE-MASSENG",
     text: text
 } as const)

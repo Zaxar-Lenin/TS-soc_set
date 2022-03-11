@@ -1,32 +1,57 @@
 import {connect} from "react-redux";
-import Profil from "./Profil";
-import {Dispatch} from "redux";
 import {StateType} from "../../../Redux/redux-store";
-import {addTextActionCreator, upDateValueTextActionCreator} from "../../../Redux/dialogs-reducer";
-import { MyPostType } from "../../../Types/Types";
+import {ActionType, MyPostType} from "../../../Types/Types";
+import React, {Dispatch} from "react";
+import {
+    addTextAC,
+    ProfilUserType,
+    setUserProfilAC,
+    upDateValueTextAC,
+    updeteIsUserAC
+} from "../../../Redux/profil-reducer";
+import {ProfilApi} from "./ProfilApi/ProfilApi";
 
-type MapStateToPropsType = {
+
+export type MapStateToPropsType = {
         myPosts: Array<MyPostType>
         messange: string
+        profilUser: ProfilUserType
+        isUser: boolean
+}
+export type MapDispatchToPropsType = {
+    addText: () => void
+    upDateValueText: (text: string) => void
+    setUserProfil: (user: ProfilUserType) => void
+    updeteIsUser: (isUser: boolean) => void
 }
 
-const MapStateToProps = (state:StateType): MapStateToPropsType => {
+const mapStateToProps = (state: StateType): MapStateToPropsType => {
     return {
         myPosts: state.profilPages.MyPosts,
-        messange: state.profilPages.text
+        messange: state.profilPages.text,
+        profilUser: state.profilPages.profilUser,
+        isUser: state.profilPages.isUser
     }
 }
-const MapDispatchToProps = (dispatch: Dispatch) => {
+
+const mapDispatchToProps = (dispatch: Dispatch<ActionType>):MapDispatchToPropsType => {
     return {
-        onAddText: () => {
-            dispatch(addTextActionCreator())
+        addText: () => {
+            dispatch(addTextAC())
         },
-        onChangeUpdateValue: (text: string) => {
-            dispatch(upDateValueTextActionCreator(text))
-        }
-
+        upDateValueText: (text: string) => {
+            dispatch(upDateValueTextAC(text))
+        },
+        setUserProfil: (user: ProfilUserType) =>{
+            dispatch(setUserProfilAC(user))
+        },
+        updeteIsUser: (isUser: boolean) =>{
+            dispatch(updeteIsUserAC(isUser))
+        },
     }
 }
 
-export const ProfilConteiner = connect(MapStateToProps,MapDispatchToProps)(Profil)
+export const ProfilConteiner = connect(mapStateToProps,mapDispatchToProps)(ProfilApi)
+
+// export type TProps = ConnectedProps<typeof ProfilConteiner>;
 

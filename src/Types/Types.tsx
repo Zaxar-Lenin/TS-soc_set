@@ -1,12 +1,14 @@
-import {addTextActionCreator, upDateValueTextActionCreator} from "../Redux/dialogs-reducer";
-import {addMassengActionCreator, upDateValueMassengActionCreator} from "../Redux/profil-reducer";
+import {addMasseng, upDateValueMasseng} from "../Redux/dialogs-reducer";
 import {DialogType, MassengType} from "../Components/content/Dialogs/Dialogs";
+import {addTextAC, setUserProfilAC, upDateValueTextAC, updeteIsUserAC} from "../Redux/profil-reducer";
 
 export type ActionType =
-    ReturnType<typeof addTextActionCreator>
-    | ReturnType<typeof upDateValueTextActionCreator>
-    | ReturnType<typeof addMassengActionCreator>
-    | ReturnType<typeof upDateValueMassengActionCreator>
+    ReturnType<typeof addTextAC>
+    | ReturnType<typeof upDateValueTextAC>
+    | ReturnType<typeof addMasseng>
+    | ReturnType<typeof upDateValueMasseng>
+    | ReturnType<typeof setUserProfilAC>
+    | ReturnType<typeof updeteIsUserAC>
 
 
 export type StoreType = {

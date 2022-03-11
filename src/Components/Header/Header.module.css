@@ -10,5 +10,7 @@
 }
 .header{
     grid-area: h;
+    width: 100%;
+    /*position: fixed;*/
     background-color: #0b042b;
 }

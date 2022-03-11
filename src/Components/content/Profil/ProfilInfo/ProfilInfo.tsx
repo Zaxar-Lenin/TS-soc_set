@@ -1,29 +1,35 @@
 import React from 'react';
 import s from './ProfilInfo.module.css'
+import {ProfilUserType} from "../../../../Redux/profil-reducer";
+import Preloader from "../../../Common/Preloader";
 
 type ProfilInfoType = {
-    onAddText: () => void
-    onChangeUpdateValue: (text: string) => void
+    addText: () => void
+    upDateValueText: (text: string) => void
     messange: string
+    profilUser: ProfilUserType
+    isUser: boolean
+
 }
 
-const ProfilInfo = (props: ProfilInfoType) => {
+const ProfilInf = (props: ProfilInfoType) => {
+
 
     const refTeaxt = React.createRef<HTMLTextAreaElement>()
 
 
     const addText = () => {
-        props.onAddText()
+        props.addText()
 
     }
 
     const updateValue = () => {
         if (refTeaxt.current) {
             const text = refTeaxt.current.value
-            props.onChangeUpdateValue(text)
+            props.upDateValueText(text)
         }
     }
-
+    // props.isUrer ? console.log(props.profilUser.photos.small) : console.log("xep")
     return (
         <div>
             <div><img
@@ -31,13 +37,11 @@ const ProfilInfo = (props: ProfilInfoType) => {
                 alt="" className={s.image}/></div>
             <h3 className={s.title}>My Name Zaxar</h3>
             <div>
-                My hobis:
-                <ul className={s.items}>
-                    <li className={s.item}>footbal</li>
-                    <li className={s.item}>footbal</li>
-                    <li className={s.item}>footbal</li>
-                    <li className={s.item}>footbal</li>
-                </ul>
+                Profil:
+                <div>{
+                    props.isUser ? <img src={props.profilUser.photos.large} alt=""/> : <Preloader/>
+                }
+                </div>
             </div>
             <div className={s.text}>
                 <textarea ref={refTeaxt} onChange={updateValue} value={props.messange}></textarea>
@@ -47,5 +51,7 @@ const ProfilInfo = (props: ProfilInfoType) => {
         </div>
     );
 }
+
+const ProfilInfo = React.memo(ProfilInf)
 
 export default ProfilInfo;
