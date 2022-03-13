@@ -9,7 +9,7 @@ import {
     upDateValueTextAC,
     updeteIsUserAC
 } from "../../../Redux/profil-reducer";
-import {ProfilApi} from "./ProfilApi/ProfilApi";
+import Profil from "./Profil";
 
 
 export type MapStateToPropsType = {
@@ -51,7 +51,10 @@ const mapDispatchToProps = (dispatch: Dispatch<ActionType>):MapDispatchToPropsTy
     }
 }
 
-export const ProfilConteiner = connect(mapStateToProps,mapDispatchToProps)(ProfilApi)
+
+export const ProfilConteiner = connect(mapStateToProps,mapDispatchToProps)(Profil)
+
+
 
 // export type TProps = ConnectedProps<typeof ProfilConteiner>;
 

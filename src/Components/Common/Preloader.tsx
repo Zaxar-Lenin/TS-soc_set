@@ -1,5 +1,5 @@
 import React from "react";
-import preloader from "../../Preloader/Eclipse-1s-200px.svg";
+import preloader from "../../Preloader/Spinner-1s-200px.svg";
 
 
 export const Preloader = () => {

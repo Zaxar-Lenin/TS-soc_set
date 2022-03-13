@@ -8,7 +8,7 @@ const Sidebar = () => {
             <div>
                 <ul className={s.menu}>
                     <li>
-                        <NavLink to="/profil" className={ navData =>  navData.isActive ? s.active : s.list}>Профиль</NavLink>
+                        <NavLink to="/profil/2" className={ navData =>  navData.isActive ? s.active : s.list}>Профиль</NavLink>
                     </li>
                     <li>
                         <NavLink to="/dialogs" className={ navData =>  navData.isActive ? s.active : s.list}>Диалоги</NavLink>

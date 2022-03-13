@@ -31,7 +31,7 @@ function App() {
             <Sidebar/>
             <div className='content'>
                 <Routes>
-                    <Route path="/profil/*" element={<ProfilConteiner/>}/>
+                    <Route path="/profil/:idUser/*" element={<ProfilConteiner/>}/>
                     <Route path="/dialogs/*" element={<DialogsContainer/>}/>
                     <Route path="/klients/*" element={<СlientsConteiner />}/>
                     <Route path="/zakaz" element={<Zakaz/>}/>
