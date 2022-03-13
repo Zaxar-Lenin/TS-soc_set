@@ -24,10 +24,9 @@ type MyPostPropsTypes = {
 
 
 const Profil = (props: MyPostPropsTypes) => {
-    let {idUser} = useParams()
-    let id = {idUser}
+    let params = useParams<"id">()
     useEffect(() => {
-        axios.get(`https://social-network.samuraijs.com/api/1.0/profile/${id.idUser}`).then(response => {
+        axios.get(`https://social-network.samuraijs.com/api/1.0/profile/${params.id}`).then(response => {
             props.setUserProfil(response.data)
             props.updeteIsUser(true)
         })

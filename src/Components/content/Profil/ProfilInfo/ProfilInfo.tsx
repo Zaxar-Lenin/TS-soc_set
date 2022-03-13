@@ -40,24 +40,29 @@ const ProfilInf = (props: ProfilInfoType) => {
                 Profil:
                 <div style={{margin: "10px 0 10px 20px"}}>
                     <div>{
-                        props.isUser ? <img src={props.profilUser.photos.large} alt=""/> : <Preloader/>
+                        props.isUser ?
+                            <div>
+                                <img src={props.profilUser.photos.large} alt=""/>
+                                <div>
+                                    обо мне: <span>{props.profilUser.aboutMe}</span>
+                                </div>
+                                <div>
+                                    меня зовут: <span>{props.profilUser.fullName}</span>
+                                </div>
+                                <div>
+                                    мой контакты:
+                                    <div style={{margin: "0 0 0 10px"}}>
+                                        vk : <span>{props.profilUser.contacts.vk}</span><br/>
+                                        github : <span>{props.profilUser.contacts.github}</span><br/>
+                                        facebook : <span>{props.profilUser.contacts.facebook}</span><br/>
+                                        twitter : <span>{props.profilUser.contacts.twitter}</span><br/>
+                                    </div>
+                                </div>
+                            </div>
+                            : <Preloader/>
                     }
                     </div>
-                    <div>
-                        обо мне: <span>{props.profilUser.aboutMe}</span>
-                    </div>
-                    <div>
-                        меня зовут: <span>{props.profilUser.fullName}</span>
-                    </div>
-                    <div>
-                        мой контакты:
-                        <div style={{margin: "0 0 0 10px"}}>
-                            vk : <span>{props.profilUser.contacts.vk}</span><br/>
-                            github : <span>{props.profilUser.contacts.github}</span><br/>
-                            facebook : <span>{props.profilUser.contacts.facebook}</span><br/>
-                            twitter : <span>{props.profilUser.contacts.twitter}</span><br/>
-                        </div>
-                    </div>
+
                 </div>
             </div>
             <div className={s.text}>
