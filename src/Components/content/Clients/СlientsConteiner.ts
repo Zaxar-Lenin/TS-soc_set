@@ -1,13 +1,11 @@
 import {connect} from "react-redux";
 import {StateType} from "../../../Redux/redux-store";
 import {
-    setClients,
-    setTotatCount,
+    ClientsPropsType,
+    setClientsTC,
+    setPageUsers,
     subscribeClient,
-    unSubscribeClient,
-    updetePage,
-    updetePreload,
-    ClientsPropsType
+    unSubscribeClient
 } from "../../../Redux/сlients-reducer";
 import ClientsApi from "./СlientsApi";
 
@@ -18,14 +16,14 @@ type mapStateToPropsType = {
     countClientsOnLine: number
     page: number
     isFollowed: boolean
+    expectationArr: number[]
 }
 type mapDispatchToPropsType = {
     subscribeClient: (id: number) => void
     unSubscribeClient: (id: number) => void
-    setClients: (users: ClientsPropsType[]) => void
-    updetePage: (m: number) => void
-    setTotatCount: (count: number) => void
-    updetePreload: (isFollowed: boolean) => void
+    setClientsTC: (page: number,countClientsOnLine: number) => void
+    setPageUsers: (page: number,countClientsOnLine: number) => void
+
 }
 
 const mapStateToProps = (state: StateType): mapStateToPropsType => {
@@ -35,7 +33,7 @@ const mapStateToProps = (state: StateType): mapStateToPropsType => {
         countClientsOnLine: state.clientsPages.countClientsOnLine,
         page: state.clientsPages.page,
         isFollowed: state.clientsPages.isFollowed,
-
+        expectationArr: state.clientsPages.expectationArr,
 
 
     }
@@ -67,10 +65,8 @@ const mapStateToProps = (state: StateType): mapStateToPropsType => {
 export const СlientsConteiner = connect<mapStateToPropsType, mapDispatchToPropsType, {}, any>(mapStateToProps, {
     subscribeClient,
     unSubscribeClient,
-    setClients,
-    updetePage,
-    setTotatCount,
-    updetePreload,
+    setClientsTC,
+    setPageUsers,
 })(ClientsApi);
 
 

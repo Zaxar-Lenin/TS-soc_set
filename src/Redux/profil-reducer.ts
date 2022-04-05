@@ -1,6 +1,7 @@
-import {MyPostType, ProfilPagesType} from "../Types/Types";
+import {MyPostType} from "../Types/Types";
 import {ActionType} from "./../Types/Types";
-import MyPost from "../Components/content/Profil/MyPost/MyPost";
+import {Dispatch} from "redux";
+import {apiDal} from "../Dal/api";
 
 export type ProfilUserType = {
     "aboutMe": string,
@@ -19,7 +20,7 @@ export type ProfilUserType = {
     "fullName": string,
     "userId": number,
     "photos": {
-        "small":string,
+        "small": string,
         "large": string,
     },
 }
@@ -40,33 +41,34 @@ const initialState = {
         {id: 11, title: "ByBeldrus", coment: 2, like: 23}
     ] as MyPostType[],
     profilUser: {} as ProfilUserType,
-    text: "",
-    isUser: false
+    isUser: false,
+    status: "",
 }
 
 export type InitiolState = typeof initialState
-export const profilReducer = (state  = initialState, action: ActionType):InitiolState => {
+export const profilReducer = (state = initialState, action: ActionType): InitiolState => {
     if (action.type === "ADD-USERS") {
         const newUser: MyPostType = {
             id: 12,
-            title: state.text,
+            title: action.text,
             coment: 2,
             like: 23
         }
-        return {...state, MyPosts: [...state.MyPosts,newUser], text: ""}
-    } else if (action.type === "UP-DATE-VALUE-TEXT") {
-       return {
-            ...state, text: action.text
-        }
-    }else if (action.type === "SET-PROFIL-USER"){
+        return {...state, MyPosts: [...state.MyPosts, newUser]}
+    } else if (action.type === "SET-PROFIL-USER") {
         return {
             ...state,
             profilUser: {...action.user}
         }
-    }else if(action.type === "UPDETE-IS-USER"){
+    } else if (action.type === "UPDETE-IS-USER") {
         return {
             ...state,
             isUser: action.isUser
+        }
+    }else if (action.type === "SET-STATUS-USER"){
+        return {
+            ...state,
+            status: action.status
         }
     }
 
@@ -74,12 +76,8 @@ export const profilReducer = (state  = initialState, action: ActionType):Initiol
 }
 
 
+export const addText = (text: string) => ({type: "ADD-USERS",text} as const)
 
-export const addTextAC = () => ({type: "ADD-USERS"} as const)
-export const upDateValueTextAC = (text: string) => ({
-    type: "UP-DATE-VALUE-TEXT",
-    text: text
-} as const)
 export const setUserProfilAC = (user: ProfilUserType) => ({
     type: "SET-PROFIL-USER",
     user
@@ -89,3 +87,31 @@ export const updeteIsUserAC = (isUser: boolean) => ({
     type: "UPDETE-IS-USER",
     isUser
 } as const)
+export const setStatusUser = (status: string) => ({
+    type: "SET-STATUS-USER",
+    status
+} as const)
+
+
+
+
+
+
+export const getUser = (idUser: string) => (dispatch: Dispatch) => {
+    apiDal.currentUser(idUser).then(data => {
+        dispatch(setUserProfilAC(data))
+        dispatch(updeteIsUserAC(true))
+    })
+}
+
+export const getUserStatus = (id: string) => (dispatch: Dispatch) => {
+    apiDal.getProfilStatus(id).then(response => {
+        dispatch(setStatusUser(response.data))
+    })
+}
+
+export const updateUserStatus = (status: string) => (dispatch: Dispatch) => {
+    apiDal.updateProfilStatus(status).then(response => {
+        dispatch(setStatusUser(response.data))
+    })
+}

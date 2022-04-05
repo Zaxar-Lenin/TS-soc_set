@@ -1,17 +1,16 @@
 import React from 'react';
 import './App.css'
-import Header from './Components/Header/Header';
 import Sidebar from './Components/Sidebar/Sidebar';
 import {Route, Routes} from 'react-router-dom';
 import Zakaz from './Components/content/Zakaz/Zakaz';
 import Comp from './Components/content/Comp/Comp';
 import DialogsContainer from './Components/content/Dialogs/DialogsContainer';
 import {ProfilConteiner} from "./Components/content/Profil/ProfilConteiner";
-import { СlientsConteiner } from './Components/content/Clients/СlientsConteiner';
+import {СlientsConteiner} from './Components/content/Clients/СlientsConteiner';
+import {HeaderContener} from "./Components/Header/HeaderContener";
+import {LoginContainer} from "./Components/content/Login/LoginContainer";
 
 
-
-// props: StateType
 function App() {
 
 
@@ -27,15 +26,17 @@ function App() {
                  src="https://sun9-54.userapi.com/impg/KhoFQcRuvEO1v5bWWUO19itwHIpecbhu_R3QaQ/q3_klmvPA4E.jpg?size=856x857&quality=96&sign=7ee3d512d48c7e3b80c9f378cb83825a&type=album"
                  alt=""/></div></div>*/
         <div className="wrapper">
-            <Header/>
+            <HeaderContener/>
             <Sidebar/>
             <div className='content'>
                 <Routes>
+                    //@ts-ignore
                     <Route path="/profil/:id" element={<ProfilConteiner/>}/>
                     <Route path="/dialogs/*" element={<DialogsContainer/>}/>
                     <Route path="/klients/*" element={<СlientsConteiner />}/>
                     <Route path="/zakaz" element={<Zakaz/>}/>
                     <Route path="/comp" element={<Comp/>}/>
+                    <Route path="/login" element={<LoginContainer/>}/>
                 </Routes>
             </div>
         </div>

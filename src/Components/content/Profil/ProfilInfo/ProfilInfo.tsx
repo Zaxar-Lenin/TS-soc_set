@@ -2,39 +2,37 @@ import React from 'react';
 import s from './ProfilInfo.module.css'
 import {ProfilUserType} from "../../../../Redux/profil-reducer";
 import Preloader from "../../../Common/Preloader";
+import EditMode from "./EditMode/EditMode";
+import {ProfilForm} from "../ProfilForm/ProfilForm";
 
 type ProfilInfoType = {
-    addText: () => void
-    upDateValueText: (text: string) => void
-    messange: string
+    addText: (text: string) => void
     profilUser: ProfilUserType
     isUser: boolean
+    status: string
+    updateUserStatus: (status: string) => void
 
+}
+
+export type FormPostType = {
+    myPost : string
 }
 
 const ProfilInf = (props: ProfilInfoType) => {
 
 
-    const refTeaxt = React.createRef<HTMLTextAreaElement>()
 
 
-    const addText = () => {
-        props.addText()
-
-    }
-
-    const updateValue = () => {
-        if (refTeaxt.current) {
-            const text = refTeaxt.current.value
-            props.upDateValueText(text)
-        }
+    const onSubmit = (formPost: FormPostType) => {
+        props.addText(formPost.myPost)
     }
     // props.isUrer ? console.log(props.profilUser.photos.small) : console.log("xep")
     return (
         <div>
-            <div><img
-                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRcpZIYpH-kndwt4nJ8K0PJ_rVD6Qh6rR42Rg&usqp=CAU"
-                alt="" className={s.image}/></div>
+            {/*<div><img*/}
+            {/*    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRcpZIYpH-kndwt4nJ8K0PJ_rVD6Qh6rR42Rg&usqp=CAU"*/}
+            {/*    alt="" className={s.image}/></div>*/}
+
             <h3 className={s.title}>My Name Zaxar</h3>
             <div>
                 Profil:
@@ -43,9 +41,7 @@ const ProfilInf = (props: ProfilInfoType) => {
                         props.isUser ?
                             <div>
                                 <img src={props.profilUser.photos.large} alt=""/>
-                                <div>
-                                    обо мне: <span>{props.profilUser.aboutMe}</span>
-                                </div>
+                                <EditMode updateUserStatus={props.updateUserStatus} status = {props.status}/>
                                 <div>
                                     меня зовут: <span>{props.profilUser.fullName}</span>
                                 </div>
@@ -66,8 +62,9 @@ const ProfilInf = (props: ProfilInfoType) => {
                 </div>
             </div>
             <div className={s.text}>
-                <textarea ref={refTeaxt} onChange={updateValue} value={props.messange}></textarea>
-                <button onClick={addText}>OK</button>
+                <ProfilForm onSubmit = {onSubmit}/>
+                {/*<textarea ref={refTeaxt} onChange={updateValue} value={props.messange}></textarea>*/}
+                {/*<button onClick={addText}>OK</button>*/}
             </div>
 
         </div>

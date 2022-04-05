@@ -11,8 +11,8 @@ type СlientsNowType = {
     totalCount: number
     countClientsOnLine: number
     page: number
-    updetePage: (m: number) => void
     onClickSpan: (page: number) => void
+    expectationArr: number[]
 }
 
 
@@ -23,6 +23,7 @@ export const Clients = (props: СlientsNowType) => {
     for (let i = 1; i <= pages; i++) {
         arrPages.push(i)
     }
+
     return (
         <div className={s.clients}>
             <div className={s.pagination}>
@@ -32,14 +33,18 @@ export const Clients = (props: СlientsNowType) => {
             </div>
             {props.clients.map(m => <div key={m.id} className={s.client}>
                 <div className={s.box1}>
-                    <NavLink to={"/profil/" + m.id}><img className={s.image}
-                            src={m.photos.small !== null ? m.photos.small : "https://png.pngtree.com/element_our/png/20181206/users-vector-icon-png_260862.jpg"}
-                            alt=""/></NavLink>
+                    <NavLink to={"/profil/" + m.id}>
+                        <img className={s.image}
+                             src={m.photos.small !== null ? m.photos.small : "https://png.pngtree.com/element_our/png/20181206/users-vector-icon-png_260862.jpg"}
+                             alt=""/>
+                    </NavLink>
                     {m.followed
-                        ? <div className={s.button}
-                               onClick={() => props.unSubscribeClient(m.id)}>unsubscribe</div>
-                        :
-                        <div className={s.button} onClick={() => props.subscribeClient(m.id)}>subscribe</div>}
+                        ? <button disabled={props.expectationArr.some(s => s=== m.id)}
+                                  className={s.button}
+                                  onClick={() => props.unSubscribeClient(m.id)}>unsubscribe</button>
+                        : <button disabled={props.expectationArr.some(s => s=== m.id)}
+                                  className={s.button}
+                                  onClick={() => props.subscribeClient(m.id)}>subscribe</button>}
                 </div>
                 <div className={s.box2}>
                     <div>{m.status}</div>

@@ -5,7 +5,6 @@ import s from './Profil.module.css'
 import {MyPostType} from "../../../Types/Types";
 import ProfilInfo from "./ProfilInfo/ProfilInfo";
 import {ProfilUserType} from "../../../Redux/profil-reducer";
-import axios from "axios";
 import {useParams} from "react-router-dom";
 
 
@@ -13,31 +12,31 @@ import {useParams} from "react-router-dom";
 
 type MyPostPropsTypes = {
     myPosts: Array<MyPostType>
-    messange: string
-    addText: () => void
-    upDateValueText: (text: string) => void
+    addText: (text: string) => void
     profilUser: ProfilUserType
     isUser: boolean
-    setUserProfil: (user: ProfilUserType) => void
-    updeteIsUser: (isUser: boolean) => void
+    getUser: (idUser: string) => void
+    status: string
+    updateUserStatus: (status: string) => void
+    getUserStatus: (id: string) => void
 }
 
 
 const Profil = (props: MyPostPropsTypes) => {
     let params = useParams<"id">()
+    let idUser = params.id ? params.id : ""
     useEffect(() => {
-        axios.get(`https://social-network.samuraijs.com/api/1.0/profile/${params.id}`).then(response => {
-            props.setUserProfil(response.data)
-            props.updeteIsUser(true)
-        })
+        props.getUser(idUser)
+        props.getUserStatus(idUser)
     }, [])
 
-    let MyPostTeg = props.myPosts.map(p => <MyPost key = {p.id} id = {p.id} title = {p.title} coment = {p.coment} like = {p.like}/>)
-
-    return(
+    let MyPostTeg = props.myPosts.map(p => <MyPost key={p.id} id={p.id} title={p.title} coment={p.coment}
+                                                   like={p.like}/>)
+    return (
         <div className={s.profil}>
             <H1/>
-            <ProfilInfo isUser = {props.isUser} profilUser={props.profilUser} addText = {props.addText} upDateValueText = {props.upDateValueText} messange = {props.messange}/>
+            <ProfilInfo updateUserStatus={props.updateUserStatus} status={props.status} isUser={props.isUser} profilUser={props.profilUser}
+                        addText={props.addText}/>
             {MyPostTeg}
         </div>
     );

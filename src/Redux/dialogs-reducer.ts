@@ -1,7 +1,7 @@
 import {ActionType, MassengTextType} from "../Types/Types";
 import {DialogType, MassengType} from "../Components/content/Dialogs/Dialogs";
 
-const initialState:{DialogsData: DialogType[],MassengsData:MassengType[],messangeChange: string} = {
+const initialState:{DialogsData: DialogType[],MassengsData:MassengType[]} = {
     DialogsData: [
         {id: 1, name: "Viki"},
         {id: 2, name: "Sergey"},
@@ -32,24 +32,17 @@ const initialState:{DialogsData: DialogType[],MassengsData:MassengType[],messang
 
 
     ],
-    messangeChange: ""
 }
-export const dialogsReducer = (state = initialState, action: ActionType):{DialogsData: DialogType[],MassengsData:MassengType[],messangeChange: string} => {
+export const dialogsReducer = (state = initialState, action: ActionType):{DialogsData: DialogType[],MassengsData:MassengType[]} => {
     if (action.type === "ADD-MASSENG") {
         const newMasseng: MassengTextType = {
             id: 3,
-            messange: state.messangeChange
+            messange: action.text
         }
-        return {...state,MassengsData: state.MassengsData.map(m => ({...m,messanges: [...m.messanges,newMasseng]})),messangeChange:""}
-        // state.messangeChange = ""
-    } else if (action.type === "UP-DATE-VALUE-MASSENG") {
-        return {...state,messangeChange: action.text}
+        return {...state,MassengsData: state.MassengsData.map(m => ({...m,messanges: [...m.messanges,newMasseng]}))}
+    }else {
+        return state
     }
-    return state
 }
 
-export const addMasseng = () => ({type: "ADD-MASSENG"} as const)
-export const upDateValueMasseng = (text: string) => ({
-    type: "UP-DATE-VALUE-MASSENG",
-    text: text
-} as const)
+export const addMasseng = (text: string) => ({type: "ADD-MASSENG",text} as const)

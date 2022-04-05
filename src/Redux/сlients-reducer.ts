@@ -1,3 +1,6 @@
+import {Dispatch} from "redux";
+import {apiDal} from "../Dal/api";
+
 export type ClientsPropsType = {
     name: string,
     id: number,
@@ -16,6 +19,7 @@ type ClientsType = {
     countClientsOnLine: number
     page: number
     isFollowed: boolean
+    expectationArr: number[]
 }
 const initialState: ClientsType = {
     clients: [] as ClientsPropsType[],
@@ -23,28 +27,42 @@ const initialState: ClientsType = {
     countClientsOnLine: 10,
     page: 1,
     isFollowed: false,
+    expectationArr: []
 }
 // const ClientsType = typeof initialState
 
-type ActionType = ActionTypeSubscribe | ActionTypeUnSubscribe | ActionTypeSetClients | ActionTypeUpdetePage | ActionTypeSetTotalCountAC | ActionTypeUpdetePreloadAC
+type ActionType = ActionTypeSubscribe
+    | ActionTypeUnSubscribe
+    | ActionTypeSetClients
+    | ActionTypeUpdetePage
+    | ActionTypeSetTotalCountAC
+    | ActionTypeUpdetePreloadAC
+    | ActionTypeSetExpectationArr
 
 
 export const clientsReducer = (state = initialState, action: ActionType): ClientsType => {
     switch (action.type) {
         case "UPDETE-SUBSCRIBE":
-            return {...state, clients: state.clients.map(m => m.id == action.idClients ? {...m,followed: true} : m)}
+            return {...state, clients: state.clients.map(m => m.id == action.idClients ? {...m, followed: true} : m)}
         case "UPDETE-UN-SUBSCRIBE":
-            return {...state, clients: state.clients.map(m => m.id === action.idClients ? {...m,followed: false} : m)}
+            return {...state, clients: state.clients.map(m => m.id === action.idClients ? {...m, followed: false} : m)}
         case "SET-CLIENTS":
             return {...state, clients: action.users}
         case "UPDETE-PAGE":
-            return {...state,page: action.page}
+            return {...state, page: action.page}
         case "SET-TOTAL-COUNT":
-            return {...state,totalCount: action.count}
+            return {...state, totalCount: action.count}
         case "UPDETE-PRELOAD":
-            return{
+            return {
                 ...state,
                 isFollowed: action.isFollowed
+            }
+        case "SET-EXPECTATION-ARR":
+            return {
+                ...state,
+                expectationArr: action.value
+                    ? [...state.expectationArr,action.id]
+                    : state.expectationArr.filter(f => f !== action.id)
             }
         default:
             return state
@@ -53,48 +71,95 @@ export const clientsReducer = (state = initialState, action: ActionType): Client
 }
 
 
-export const subscribeClient = (id: number) => {
+export const subscribe = (id: number) => {
     return {
         type: "UPDETE-SUBSCRIBE",
         idClients: id
-    }as const
+    } as const
 }
 
-export const unSubscribeClient = (id: number) => {
+export const unSubscribe = (id: number) => {
     return {
         type: "UPDETE-UN-SUBSCRIBE",
         idClients: id
-    }as const
+    } as const
 }
 
-export const setClients = ( users: ClientsPropsType[]) => {
+export const setClients = (users: ClientsPropsType[]) => {
     return {
         type: "SET-CLIENTS",
         users: users
-    }as const
+    } as const
 }
-export const updetePage = ( m: number) => {
+export const updetePage = (m: number) => {
     return {
         type: "UPDETE-PAGE",
         page: m
-    }as const
+    } as const
 }
-export const setTotatCount = ( count: number) => {
+export const setTotatCount = (count: number) => {
     return {
         type: "SET-TOTAL-COUNT",
         count
-    }as const
+    } as const
 }
-export const updetePreload = ( isFollowed: boolean) => {
+export const updetePreload = (isFollowed: boolean) => {
     return {
         type: "UPDETE-PRELOAD",
-        isFollowed
-    }as const
+        isFollowed,
+    } as const
+}
+export const setExpectationArr = (value: boolean, id: number) => {
+    return {
+        type: "SET-EXPECTATION-ARR",
+        value,
+        id,
+    } as const
 }
 
 type ActionTypeUpdetePage = ReturnType<typeof updetePage>
-type ActionTypeSubscribe = ReturnType<typeof subscribeClient>
-type ActionTypeUnSubscribe = ReturnType<typeof unSubscribeClient>
+type ActionTypeSubscribe = ReturnType<typeof subscribe>
+type ActionTypeUnSubscribe = ReturnType<typeof unSubscribe>
 type ActionTypeSetClients = ReturnType<typeof setClients>
 type ActionTypeSetTotalCountAC = ReturnType<typeof setTotatCount>
 type ActionTypeUpdetePreloadAC = ReturnType<typeof updetePreload>
+type ActionTypeSetExpectationArr = ReturnType<typeof setExpectationArr>
+
+
+
+export const unSubscribeClient = (id: number) => (dispatch: Dispatch) => {
+    dispatch(setExpectationArr(true, id))
+    apiDal.deleteFollowed(id).then(data => {
+        if (data.resultCode === 0) {
+            dispatch(unSubscribe(id))
+        }
+        dispatch(setExpectationArr(false, id))
+
+    })
+}
+export const subscribeClient = (id: number) => (dispatch: Dispatch) => {
+    dispatch(setExpectationArr(true, id))
+    apiDal.postFollowed(id).then(data => {
+        if (data.resultCode === 0) {
+            dispatch(subscribe(id))
+        }
+        dispatch(setExpectationArr(false, id))
+
+    })
+}
+export const setClientsTC = (page: number,countClientsOnLine: number) => (dispatch: Dispatch) => {
+    dispatch(updetePreload(true))
+    apiDal.getUser(page, countClientsOnLine).then(data => {
+        dispatch(updetePreload(false))
+        dispatch(setClients(data.items))
+        dispatch(setTotatCount(data.totalCount))
+    })
+}
+export const setPageUsers = (page: number,countClientsOnLine: number) => (dispatch: Dispatch) => {
+    dispatch(updetePreload(true))
+    dispatch(updetePage(page))
+    apiDal.getUserInPage(page, countClientsOnLine).then(data => {
+        dispatch(updetePreload(false))
+        dispatch(setClients(data.items))
+    })
+}

@@ -19,22 +19,17 @@ export type MassengType = {
 type DialogsArrType = {
     DialogsData: Array<DialogType>
     MessangesData: Array<MassengType>
-    addMasseng: () => void,
-    upDateValueMasseng: (text: string) => void,
-    messangeChange: string,
+    addMasseng: (text: string) => void,
 }
 
 const Dialogs = (props: DialogsArrType) => {
 
     const mapMssengsData = props.MessangesData.map(m => <Messange
         key = {m.id}
-        messangeChange = {props.messangeChange}
         addMasseng = {props.addMasseng}
-        upDateValueMasseng = {props.upDateValueMasseng}
         id={m.id}
         messanges={m.messanges}
         name={m.name}/>)
-
     return (
         <div className={s.dialogs}>
             <div className={s.dialogItems}>

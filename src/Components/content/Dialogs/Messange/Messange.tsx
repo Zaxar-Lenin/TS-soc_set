@@ -1,36 +1,24 @@
-import React, {KeyboardEvent, RefObject} from "react";
+import React from "react";
 import {MassengType} from "../Dialogs";
 import s from './Messange.module.css'
+import {DialogForm} from "./DialogForm/DialogForm";
 
 
 type MassengTypeWithFunc = MassengType & {
-    messangeChange: string,
-    addMasseng: () => void,
-    upDateValueMasseng: (text: string) => void,
+    addMasseng: (text: string) => void,
+}
+
+export type DialogFormType ={
+    myMessage: string
 }
 
 
 const Messange = (props: MassengTypeWithFunc) => {
-    const textAreaEl: RefObject<HTMLTextAreaElement> = React.createRef()
 
-    const addMasseng = () => {
-        props.messangeChange && props.addMasseng()
+    const onSubmit = (formDialog: DialogFormType) => {
+        props.addMasseng(formDialog.myMessage)
+
     }
-
-    const ChangeValueOn = () => {
-        if (textAreaEl.current) {
-            const text = textAreaEl.current.value
-            props.upDateValueMasseng(text)
-        }
-    }
-
-
-    const enterPik = (e: KeyboardEvent<HTMLTextAreaElement>) => {
-        if (props.messangeChange && e.key === "Enter") {
-            props.addMasseng()
-        }
-    }
-
 
     return <div className={s.item}>
         <div>{props.name}</div>
@@ -38,9 +26,10 @@ const Messange = (props: MassengTypeWithFunc) => {
             {props.messanges.map(m => <li key={m.id}>{m.messange}</li>)}
         </ul>
         <div className={s.text}>
-                    <textarea onKeyPress={enterPik} onChange={ChangeValueOn} ref={textAreaEl}
-                              value={props.messangeChange}></textarea>
-            <button onClick={addMasseng}>OK</button>
+            <DialogForm onSubmit = {onSubmit}/>
+            {/*        <textarea onKeyPress={enterPik} onChange={ChangeValueOn} ref={textAreaEl}*/}
+            {/*                  value={props.messangeChange}></textarea>*/}
+            {/*<button onClick={addMasseng}>OK</button>*/}
         </div>
     </div>
 

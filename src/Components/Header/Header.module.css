@@ -1,7 +1,7 @@
 .image{
     
     color:floralwhite;
-    margin: 25px 0 0 50px;
+    margin: 0 0 0 50px;
     font-size: 36px;
     
 }
@@ -13,4 +13,22 @@
     width: 100%;
     /*position: fixed;*/
     background-color: #0b042b;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
 }
+.div_link{
+    margin: 0 50px 0 0;
+}
+.link{
+    color: white;
+    font-size: 26px;
+    text-decoration: none;
+}
+.inform{
+    color: white;
+    font-size: 26px;
+    text-decoration: none;
+}
+

@@ -2,25 +2,22 @@ import React from "react";
 import {connect} from "react-redux";
 import Dialogs, {DialogType, MassengType} from "./Dialogs";
 import {StateType} from "../../../Redux/redux-store";
-import {Dispatch} from "redux";
-import {addMasseng, upDateValueMasseng} from "../../../Redux/dialogs-reducer";
-import {MyPostType} from "../../../Types/Types";
+import {compose} from "redux";
+import {addMasseng} from "../../../Redux/dialogs-reducer";
+import {WithRiderect} from "../../../HOC/withRiderect";
 
 type MapStateToPropsType = {
     DialogsData: Array<DialogType>
     MessangesData: Array<MassengType>
-    messangeChange: string
 }
 type MapDispatchToPropsType = {
-    addMasseng: () => void,
-    upDateValueMasseng: (text: string) => void,
+    addMasseng: (text: string) => void,
 }
 
 const mapStateToProps = (state: StateType): MapStateToPropsType => {
     return {
         DialogsData: state.dialogsPages.DialogsData,
         MessangesData: state.dialogsPages.MassengsData,
-        messangeChange: state.dialogsPages.messangeChange
     }
 }
 // const mapDispatchToProps = (dispatch: Dispatch) => {
@@ -34,10 +31,12 @@ const mapStateToProps = (state: StateType): MapStateToPropsType => {
 //     }
 // }
 
-const DialogsContainer = connect(mapStateToProps, {
-    addMasseng,
-    upDateValueMasseng,
-})(Dialogs)
 
 
-export default DialogsContainer
+
+
+export default compose<React.ComponentType>(
+    connect(mapStateToProps, {
+        addMasseng,
+    }),
+    WithRiderect)(Dialogs)

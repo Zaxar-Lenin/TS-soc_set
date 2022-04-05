@@ -1,0 +1,14 @@
+.text_error{
+    border: 1px solid red;
+}
+.text{
+    height: 50px;
+    width: 200px;
+}
+.text_input{
+    height: 30px;
+    width: 200px;
+}
+.error{
+    color: red;
+}
