@@ -1,4 +1,4 @@
-import {ActionType, MassengTextType} from "../Types/Types";
+import {ActionDialogsType, MassengTextType} from "../Types/Types";
 import {DialogType, MassengType} from "../Components/content/Dialogs/Dialogs";
 
 const initialState:{DialogsData: DialogType[],MassengsData:MassengType[]} = {
@@ -33,7 +33,7 @@ const initialState:{DialogsData: DialogType[],MassengsData:MassengType[]} = {
 
     ],
 }
-export const dialogsReducer = (state = initialState, action: ActionType):{DialogsData: DialogType[],MassengsData:MassengType[]} => {
+export const dialogsReducer = (state = initialState, action: ActionDialogsType):{DialogsData: DialogType[],MassengsData:MassengType[]} => {
     if (action.type === "ADD-MASSENG") {
         const newMasseng: MassengTextType = {
             id: 3,

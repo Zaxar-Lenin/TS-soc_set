@@ -1,6 +1,8 @@
 import {Dispatch} from "redux";
 import {apiDal} from "../Dal/api";
 import {FormDataType} from "../Components/content/Login/Login";
+import {stopSubmit} from "redux-form";
+import {ThunkType} from "./redux-store";
 
 const initialState: AuthType = {
     id: null,
@@ -15,10 +17,10 @@ export type AuthType = {
     isAuth: boolean,
 }
 
-type ActionType = SetDateMeActionType
+export type ActionAuthType = SetDateMeActionType
 
 
-export const authReducer = (state: AuthType = initialState, action: ActionType): AuthType => {
+export const authReducer = (state: AuthType = initialState, action: ActionAuthType): AuthType => {
     switch (action.type) {
         case "SET-DATE-ME":
             return {
@@ -46,19 +48,21 @@ export const setDateMeAC = (id: number | null, login: string | null, email: stri
 type SetDateMeActionType = ReturnType<typeof setDateMeAC>
 
 export const authUserInProfile = () => (dispatch: Dispatch) => {
-    apiDal.authUser().then(data => {
+    return apiDal.authUser().then(data => {
         let {id, login, email} = data.data
         if (data.resultCode === 0) {
             dispatch(setDateMeAC(id, login, email, true))
         }
     })
 }
-export const authLogInUserInProfile = (formDate: FormDataType) => (dispatch: Dispatch) => {
+export const authLogInUserInProfile = (formDate: FormDataType): ThunkType => (dispatch) => {
     apiDal.postLoginUser(formDate)
         .then(response => {
             if (response.data.resultCode === 0){
-                // @ts-ignore
                 dispatch(authUserInProfile())
+            }else{
+                let error = response.data.messages.length ? response.data.messages[0] : "Errror"
+                dispatch(stopSubmit("login", {_error: error}))
             }
         })
 }

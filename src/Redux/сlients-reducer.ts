@@ -31,7 +31,7 @@ const initialState: ClientsType = {
 }
 // const ClientsType = typeof initialState
 
-type ActionType = ActionTypeSubscribe
+export type ActionClientsType = ActionTypeSubscribe
     | ActionTypeUnSubscribe
     | ActionTypeSetClients
     | ActionTypeUpdetePage
@@ -40,7 +40,7 @@ type ActionType = ActionTypeSubscribe
     | ActionTypeSetExpectationArr
 
 
-export const clientsReducer = (state = initialState, action: ActionType): ClientsType => {
+export const clientsReducer = (state = initialState, action: ActionClientsType): ClientsType => {
     switch (action.type) {
         case "UPDETE-SUBSCRIBE":
             return {...state, clients: state.clients.map(m => m.id == action.idClients ? {...m, followed: true} : m)}

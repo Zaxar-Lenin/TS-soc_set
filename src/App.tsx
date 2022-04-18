@@ -9,41 +9,67 @@ import {ProfilConteiner} from "./Components/content/Profil/ProfilConteiner";
 import {СlientsConteiner} from './Components/content/Clients/СlientsConteiner';
 import {HeaderContener} from "./Components/Header/HeaderContener";
 import {LoginContainer} from "./Components/content/Login/LoginContainer";
+import {connect} from "react-redux";
+import {initializeApp} from "./Redux/app-ruducer";
+import {StateType} from "./Redux/redux-store";
+import Preloader from "./Components/Common/Preloader";
+import tt from "./c/72d3488e-7140-4cf4-8f0c-a8182ea53872 (1).jpg"
 
 
-function App() {
+class App extends React.Component<any, mapStateToPropsType> {
 
+    componentDidMount() {
+        this.props.initializeApp()
+    }
 
-    return (
-        /* <div style={{
-             fontSize: "100px",
-             margin: "100px",
-             backgroundColor: "black",
-             color: "white",
-             padding: "20px"
-         }}>Нихуя малышечка
-             <div><img
-                 src="https://sun9-54.userapi.com/impg/KhoFQcRuvEO1v5bWWUO19itwHIpecbhu_R3QaQ/q3_klmvPA4E.jpg?size=856x857&quality=96&sign=7ee3d512d48c7e3b80c9f378cb83825a&type=album"
-                 alt=""/></div></div>*/
-        <div className="wrapper">
-            <HeaderContener/>
-            <Sidebar/>
-            <div className='content'>
-                <Routes>
-                    //@ts-ignore
-                    <Route path="/profil/:id" element={<ProfilConteiner/>}/>
-                    <Route path="/dialogs/*" element={<DialogsContainer/>}/>
-                    <Route path="/klients/*" element={<СlientsConteiner />}/>
-                    <Route path="/zakaz" element={<Zakaz/>}/>
-                    <Route path="/comp" element={<Comp/>}/>
-                    <Route path="/login" element={<LoginContainer/>}/>
-                </Routes>
-            </div>
-        </div>
-    );
+    render() {
+    if(!this.props.initialize){
+        return <Preloader/>
+    }
+
+        return (
+             <div style={{
+                 fontSize: "100px",
+                 margin: "100px",
+                 backgroundColor: "black",
+                 color: "white",
+                 padding: "20px"
+             }}>Нихуя малышечка,
+                 Спокойной ночки детка!:)
+                 <div><img
+                     src={tt}
+                     alt=""/></div></div>
+            /*<div className="wrapper">
+                <HeaderContener/>
+                <Sidebar/>
+                <div className='content'>
+                    <Routes>
+                        //@ts-ignore
+                        <Route path="/profil/:id" element={<ProfilConteiner/>}/>
+                        <Route path="/dialogs/*" element={<DialogsContainer/>}/>
+                        <Route path="/klients/*" element={<СlientsConteiner/>}/>
+                        <Route path="/zakaz" element={<Zakaz/>}/>
+                        <Route path="/comp" element={<Comp/>}/>
+                        <Route path="/login" element={<LoginContainer/>}/>
+                    </Routes>
+                </div>
+            </div>*/
+        );
+    }
 }
 
-export default App;
+type mapStateToPropsType = {
+    initialize: boolean
+}
+const mapStateToProps = (state: StateType): mapStateToPropsType => {
+    return {
+        initialize: state.app.initialized
+    }
+}
+
+const AppClass = connect(mapStateToProps,{initializeApp})(App)
+
+export default AppClass;
 
 
 {/*MyPosts={props.state.profilPages.MyPosts}*/

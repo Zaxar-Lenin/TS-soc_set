@@ -5,7 +5,9 @@ import s from './Profil.module.css'
 import {MyPostType} from "../../../Types/Types";
 import ProfilInfo from "./ProfilInfo/ProfilInfo";
 import {ProfilUserType} from "../../../Redux/profil-reducer";
-import {useParams} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
+
+
 
 
 // props: ArrMyPostType
@@ -25,6 +27,10 @@ type MyPostPropsTypes = {
 const Profil = (props: MyPostPropsTypes) => {
     let params = useParams<"id">()
     let idUser = params.id ? params.id : ""
+    let history = useNavigate();
+    if(!idUser){
+        history("/login");
+    }
     useEffect(() => {
         props.getUser(idUser)
         props.getUserStatus(idUser)

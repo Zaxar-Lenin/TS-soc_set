@@ -1,5 +1,4 @@
-import {MyPostType} from "../Types/Types";
-import {ActionType} from "./../Types/Types";
+import {ActionDialogsType, MyPostType} from "../Types/Types";
 import {Dispatch} from "redux";
 import {apiDal} from "../Dal/api";
 
@@ -46,7 +45,7 @@ const initialState = {
 }
 
 export type InitiolState = typeof initialState
-export const profilReducer = (state = initialState, action: ActionType): InitiolState => {
+export const profilReducer = (state = initialState, action: ActionDialogsType): InitiolState => {
     if (action.type === "ADD-USERS") {
         const newUser: MyPostType = {
             id: 12,

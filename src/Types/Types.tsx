@@ -2,7 +2,7 @@ import {addMasseng} from "../Redux/dialogs-reducer";
 import {DialogType, MassengType} from "../Components/content/Dialogs/Dialogs";
 import {addText, setStatusUser, setUserProfilAC, updeteIsUserAC} from "../Redux/profil-reducer";
 
-export type ActionType =
+export type ActionDialogsType =
     ReturnType<typeof addText>
     | ReturnType<typeof addMasseng>
     | ReturnType<typeof setUserProfilAC>
@@ -15,7 +15,7 @@ export type StoreType = {
     _callSubscripe: () => void
     subscripe: (observer: () => void) => void
     getState: () => all
-    dispatсh: (action: ActionType) => void
+    dispatсh: (action: ActionDialogsType) => void
 }
 
 
@@ -32,7 +32,7 @@ export type MassengTextType = {
 
 export type ArrMyPostType = {
     MyPosts: Array<MyPostType>
-    dispatсh: (action: ActionType) => void;
+    dispatсh: (action: ActionDialogsType) => void;
     messange: string
 }
 
@@ -52,5 +52,5 @@ export type all = {
 
 export type StateType = {
     state: all
-    dispatсh: (action: ActionType) => void;
+    dispatсh: (action: ActionDialogsType) => void;
 }

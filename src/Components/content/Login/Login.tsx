@@ -3,6 +3,7 @@ import {Field, InjectedFormProps, reduxForm} from 'redux-form'
 import {TextInput} from "../Profil/ProfilForm/TextArea";
 import {required} from "../../../until/validators";
 import {Navigate} from "react-router-dom";
+import s from "./../Profil/ProfilForm/TextArea.module.css"
 
 export type FormDataType = {
     login: string
@@ -33,6 +34,9 @@ export const Login = (props: LoginPropsType) => {
 
 export const LoginForm = (props: InjectedFormProps<FormDataType>) => {
     return <form onSubmit={props.handleSubmit}>
+        {props.error && <div className={s.error_form_all}>
+            {props.error}
+        </div>}
         <div>
             <Field
                 validate={[required]}
@@ -57,6 +61,7 @@ export const LoginForm = (props: InjectedFormProps<FormDataType>) => {
         <div>
             <button>Login</button>
         </div>
+
     </form>
 }
 
